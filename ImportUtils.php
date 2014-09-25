@@ -80,7 +80,7 @@ function convert_table($table) {
 }
 
 
-function get_images_from_html($myHTMLContent, $myWikiContent){
+function get_images_from_html($myHTMLContent, $myWikiContent, $nameSpace){
 
       #Detect if an image is present in the header, if it is the case, start taking picture into account one picture farther
       $imageInHeader = preg_match("/<DIV TYPE=HEADER>.*<IMG(.*)>.*<\/DIV>/s",  $myHTMLContent);
@@ -110,7 +110,7 @@ function get_images_from_html($myHTMLContent, $myWikiContent){
           $left_align = "";
           $righ_align = "";
         }
-        array_push($image_names, "{{".$left_align."image:".$image_tags[1][$i]."?".$image_tags[3][$i]."x".$image_tags[4][$i].$righ_align."}}");
+        array_push($image_names, "{{".$left_align.$nameSpace.":".$image_tags[1][$i]."?".$image_tags[3][$i]."x".$image_tags[4][$i].$righ_align."}}");
         array_push($image_patterns, "/\{\{wiki:\}\}/");
       }
 
@@ -118,9 +118,9 @@ function get_images_from_html($myHTMLContent, $myWikiContent){
       $myWikiContent = preg_replace($image_patterns, $image_names, $myWikiContent, 1);
 
       #Some image align produce html align divs in the wiki text, replace them by hand
-      $myWikiContent = preg_replace("/<div align=\"right\">{{image:(.*)}}<\/div>/U", "{{ image:$1}}", $myWikiContent);
-      $myWikiContent = preg_replace("/<div align=\"left\">{{image:(.*)}}<\/div>/U", "{{image:$1 }}", $myWikiContent);
-      $myWikiContent = preg_replace("/<div align=\"center\">{{image:(.*)}}<\/div>/U", "{{ image:$1 }}", $myWikiContent);
+      $myWikiContent = preg_replace("/<div align=\"right\">{{".$nameSpace.":"."(.*)}}<\/div>/U", "{{ ".$nameSpace.":"."$1}}", $myWikiContent);
+      $myWikiContent = preg_replace("/<div align=\"left\">{{".$nameSpace.":"."(.*)}}<\/div>/U", "{{ ".$nameSpace.":"."$1 }}", $myWikiContent);
+      $myWikiContent = preg_replace("/<div align=\"center\">{{".$nameSpace.":"."(.*)}}<\/div>/U", "{{ ".$nameSpace.":"."$1 }}", $myWikiContent);
 
       return $myWikiContent;
 }
