@@ -70,7 +70,7 @@ class action_plugin_docimporter extends DokuWiki_Action_Plugin {
         $myWikiContent = replace_from_list($myWikiContent, $italic_sentences, "italic");
 
         #Get all the images from the html
-        $myWikiContent = get_images_from_html($myHTMLContent, $myWikiContent);
+        $myWikiContent = get_images_from_html($myHTMLContent, $myWikiContent, $nameSpace);
 
         #Convert tables      
         $raw_tables = array();
