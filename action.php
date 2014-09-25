@@ -123,7 +123,7 @@ class action_plugin_docimporter extends DokuWiki_Action_Plugin {
                      //$image_data = base64_encode($image_data);
                      $image_data = new IXR_Base64($image_data);
                      $attrs = array('ow' => true);
-                     $client->query('wiki.putAttachment', $entry, $image_data, $attrs);
+                     $client->query('wiki.putAttachment', $nameSpace.':'.$entry, $image_data, $attrs);
                 }
             }
 
