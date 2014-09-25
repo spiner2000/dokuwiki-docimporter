@@ -108,7 +108,7 @@ class action_plugin_docimporter extends DokuWiki_Action_Plugin {
         #Send the wiki page
         $username = $this->getConf('api_username');
         $password = $this->getConf('api_password');
-        $client = new IXR_Client('http://localhost/dokuwiki/lib/exe/xmlrpc.php');
+        $client = new IXR_Client('http://localhost:8080/dokuwiki/lib/exe/xmlrpc.php');
         $ok = $client->query('dokuwiki.login', $username, $password);
         if ($ok) {
           $attrs = array('sum' => 'First try', 'minor' => false);
